@@ -1,10 +1,10 @@
-# Flash Algorithm for cc13x2_cc26x2
+# Flash Algorithm for cc23xx
 
-This is a flash algorithm for the TI cc13x2_cc26x2 devices. It is intended
+This is a flash algorithm for the TI cc23xx devices. It is intended
 for use with `probe-rs`, but since it follows the CMSIS-PACK standard it could
 also be used with other debuggers such as PyOCD. That is not tested.
 
-![CI](https://github.com/seanmlyons22/cc13x2-cc26x2-flash/actions/workflows/ci.yml/badge.svg)[![chat](https://img.shields.io/badge/chat-probe--rs%3Amatrix.org-brightgreen)](https://matrix.to/#/#probe-rs:matrix.org)
+![CI](https://github.com/seanmlyons22/cc23xx-flash/actions/workflows/ci.yml/badge.svg)[![chat](https://img.shields.io/badge/chat-probe--rs%3Amatrix.org-brightgreen)](https://matrix.to/#/#probe-rs:matrix.org)
 
 ## Dependencies
 
@@ -18,36 +18,8 @@ rustup component add llvm-tools-preview
 Ensure you have the right toolchain:
 
 ```
-rustup target add thumbv7em-none-eabihf
+rustup target add thumbv6m-none-eabi
 ```
-
-## Setting up sub-modules
-
-This template uses TI's driverlib functions to access the flash.
-This is battle tested by TI, so no need to rewrite the lowest level access in
-Rust. Instead, we invoke the driverlib functions using the FFI.
-
-To do that, we need to get TI's driverlib. For that, we use TI's SDK
-on github. We consume that as a submodule.
-
-For first time clone:
-
-```
-git clone --recurse-submodules <repo name>
-```
-
-If you have have an existing checkout (and forgot to run with recurse submodules):
-
-```
-git submodule update --init --recursive
-```
-
-## Build Script
-
-This repo uses a build script to copy driverlib from TI's git based SDK into
-the `target` dir. It also renames the library to match LLD's search expectations.
-
-See `build.rs` for more. This runs on the host machine when `cargo build` is run.
 
 ## Developing the algorithm
 
@@ -56,7 +28,6 @@ You will also be able to see RTT messages.
 
 You can find the generated YAML in `target/definition.yaml`.
 
-# License
+## License
 
 This is licensed under MIT license ([LICENSE-MIT](LICENSE-MIT) or http://opensource.org/licenses/MIT)
-
