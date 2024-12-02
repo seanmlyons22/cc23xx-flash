@@ -25,8 +25,8 @@ algorithm!(Algorithm, {
 use core::ffi::c_void;
 
 // SHA256 types
-pub type SHA256SW_Handle = *mut c_void;
-pub type SHA2SW_HashType = u32;
+pub type Sha256swHandle = *mut c_void;
+pub type Sha2swHashType = u32;
 
 /// HAPI table containing ROM function pointers
 #[repr(C)]
@@ -41,10 +41,10 @@ pub struct HardApi {
     pub secded_encode: unsafe extern "C" fn(*mut u8, *const u64, u32),
     pub secded_decode: unsafe extern "C" fn(*mut u64, *const u8, u32) -> i32,
     pub enter_application: unsafe extern "C" fn(),
-    pub sha256_sw_hash_data: unsafe extern "C" fn(SHA256SW_Handle, SHA2SW_HashType, *const c_void, usize, *mut u32) -> i16,
-    pub sha256_sw_start: unsafe extern "C" fn(SHA256SW_Handle, SHA2SW_HashType) -> i16,
-    pub sha256_sw_add_data: unsafe extern "C" fn(SHA256SW_Handle, *const c_void, usize) -> i16,
-    pub sha256_sw_finalize: unsafe extern "C" fn(SHA256SW_Handle, *mut u32) -> i16,
+    pub sha256_sw_hash_data: unsafe extern "C" fn(Sha256swHandle, Sha2swHashType, *const c_void, usize, *mut u32) -> i16,
+    pub sha256_sw_start: unsafe extern "C" fn(Sha256swHandle, Sha2swHashType) -> i16,
+    pub sha256_sw_add_data: unsafe extern "C" fn(Sha256swHandle, *const c_void, usize) -> i16,
+    pub sha256_sw_finalize: unsafe extern "C" fn(Sha256swHandle, *mut u32) -> i16,
     pub reset_device: unsafe extern "C" fn(),
     pub sha256_sw_process_block: unsafe extern "C" fn(*mut u32, *mut u32),
     pub sha256_sw_k256: *const [u32; 64],
@@ -82,8 +82,7 @@ pub fn flash_sector_erase(sector_address: u32) -> u32 {
 
 pub fn flash_bank_erase() -> u32 {
     unsafe {
-        //(get_hapi().flash_bank_erase)(FLASH_API_KEY)
-        0
+        (get_hapi().flash_bank_erase)(FLASH_API_KEY)
     }
 }
 

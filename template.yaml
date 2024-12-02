@@ -43,11 +43,13 @@ flash_algorithms:
     flash_properties:
       address_range:
         start: 0x0
-        end: 0x0
-      page_size: 0x0
-      erased_byte_value: 0xFF
-      program_page_timeout: 0x0
-      erase_sector_timeout: 0x0
+        end: 0x4E020800
+      page_size: 0x800
+      erased_byte_value: 0xff
+      program_page_timeout: 1000
+      erase_sector_timeout: 2000
       sectors:
-        - size: 0x0
-          address: 0x0
+      - size: 0x800
+        address: 0x0
+      - size: 0x800
+        address: 0x4E020000
